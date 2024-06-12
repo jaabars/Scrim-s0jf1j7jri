@@ -29,6 +29,7 @@ console.log('Initializing Firebase app...');
 const app = initializeApp(appSettings);
 const database = getDatabase(app);
 const shoppingListInDB = ref(database, 'shoppingList');
+
 const messaging = getMessaging(app);
 const registrationTokens =  await requestPermissionAndGetToken()
 
@@ -36,6 +37,8 @@ const registrationTokens =  await requestPermissionAndGetToken()
 const inputFieldEl = document.getElementById('input-field');
 const addButtonEl = document.getElementById('add-button');
 const shoppingListEl = document.getElementById('shopping-list');
+
+
 
 addButtonEl.addEventListener('click', async function () {
   console.log('clicked add button');
@@ -95,7 +98,7 @@ async function requestPermissionAndGetToken(){
   console.log('requestPermissionAndGetToken started');
   try {
     await Notification.requestPermission();
-    const currentToken = await getToken(messaging, {
+    const currentToken = await getToken(messaging,{
         vapidKey:
           'BGPKEbj2JCADxrrqLF1Nw_B_5iJtKO0qSmr8AyiGIcx7d1e_ZUJSmW0nQjKCTIu0S-FMOX_sGM8C38gudZfHE5k',
       });
@@ -124,15 +127,14 @@ onMessage(messaging, (payload) => {
   new Notification(notificationTitle, notificationOptions);
 });
 
-
-  if ('serviceWorker' in navigator) {
-    navigator.serviceWorker.register('../firebase-messaging-sw.js')
-      .then(function(registration) {
-        console.log('Registration successful, scope is:', registration.scope);
-      }).catch(function(err) {
-        console.log('Service worker registration failed, error:', err);
-      });
-    }
+if ('serviceWorker' in navigator) {
+  navigator.serviceWorker.register('firebase-messaging-sw.js')
+    .then(function(registration) {
+      console.log('Registration successful, scope is:', registration.scope);
+    }).catch(function(err) {
+      console.log('Service worker registration failed, error:', err);
+    });
+  }
 
 /*self.addEventListener('push', event => {
     const options = {
