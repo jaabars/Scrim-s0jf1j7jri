@@ -31,7 +31,6 @@ const database = getDatabase(app);
 const shoppingListInDB = ref(database, 'shoppingList');
 
 const messaging = getMessaging(app);
-const registrationTokens =  await requestPermissionAndGetToken()
 
 
 const inputFieldEl = document.getElementById('input-field');
@@ -42,7 +41,8 @@ const shoppingListEl = document.getElementById('shopping-list');
 
 addButtonEl.addEventListener('click', async function () {
   console.log('clicked add button');
-  await onMessage();
+  await requestPermissionAndGetToken();
+  //await onMessage();
   //let inputValue = inputFieldEl.value;
 
   //push(shoppingListInDB, inputValue);
@@ -129,7 +129,7 @@ onMessage(messaging, (payload) => {
 
 
 if ('serviceWorker' in navigator) {
-  navigator.serviceWorker.register('https://github.com/jaabars/Scrim-s0jf1j7jri/blob/main/firebase-messaging-sw.js')
+  navigator.serviceWorker.register('/firebase-messaging-sw.js')
     .then(function(registration) {
       console.log('Registration successful, scope is:', registration.scope);
     }).catch(function(err) {
