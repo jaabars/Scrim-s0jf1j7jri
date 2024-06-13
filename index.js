@@ -128,15 +128,6 @@ onMessage(messaging, (payload) => {
 });
 
 
-if ('serviceWorker' in navigator) {
-  navigator.serviceWorker.register('firebase-messaging-sw.js')
-    .then(function(registration) {
-      console.log('Registration successful, scope is:', registration.scope);
-    }).catch(function(err) {
-      console.log('Service worker registration failed, error:', err);
-    });
-  }
-
 /*self.addEventListener('push', event => {
     const options = {
       body: event.data.text(),

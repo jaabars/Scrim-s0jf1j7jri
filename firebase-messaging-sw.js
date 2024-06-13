@@ -1,7 +1,10 @@
-import { initializeApp } from 'https://www.gstatic.com/firebasejs/9.15.0/firebase-app.js';
+/*import { initializeApp } from 'https://www.gstatic.com/firebasejs/9.15.0/firebase-app.js';
 import {
   getMessaging,
 } from 'https://www.gstatic.com/firebasejs/9.15.0/firebase-messaging.js';
+*/
+importScripts("https://www.gstatic.com/firebasejs/8.0.0/firebase-app.js");
+importScripts("https://www.gstatic.com/firebasejs/8.0.0/firebase-messaging.js");
 
 const appSettings = {
   databaseURL:
@@ -14,11 +17,8 @@ const appSettings = {
     appId: "1:151682205637:web:909a93237c8558b447edac"
 };
 
-const app = initializeApp(appSettings);
-const messaging = getMessaging(app);
-
-
-
+const app = firebase.initializeApp(appSettings);
+const messaging = firebase.messaging();
 
 
 
