@@ -1,7 +1,6 @@
 import { initializeApp } from 'https://www.gstatic.com/firebasejs/9.15.0/firebase-app.js';
 import {
   getMessaging,
-  onMessage,
 } from 'https://www.gstatic.com/firebasejs/9.15.0/firebase-messaging.js';
 
 const appSettings = {
@@ -19,13 +18,15 @@ const app = initializeApp(appSettings);
 const messaging = getMessaging(app);
 
 
-onMessage(messaging, (payload) => {
-  console.log('Message received. ', payload);
-  const notificationTitle = payload.notification.title;
-  const notificationOptions = {
-    body: payload.notification.body,
-    icon: payload.notification.icon,
-  };
 
-  new Notification(notificationTitle, notificationOptions);
+
+
+
+messaging.setBackgroundMessageHandler(function(payload) {
+  console.log('Handling background message', payload);
+
+  // Copy data object to get parameters in the click handler
+  payload.data.data = JSON.parse(JSON.stringify(payload.data));
+
+  return self.registration.showNotification(payload.data.title, payload.data);
 });
