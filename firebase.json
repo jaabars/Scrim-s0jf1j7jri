@@ -1,0 +1,8 @@
+{
+  "hosting": {
+    "public": "../Scrim-s0jf1j7jri",
+    "ignore": [
+      "firebase.json"
+    ]
+  }
+}

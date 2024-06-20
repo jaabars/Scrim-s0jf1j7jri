@@ -28,8 +28,11 @@ messaging.setBackgroundMessageHandler(function(payload) {
   // Copy data object to get parameters in the click handler
   payload.data.data = JSON.parse(JSON.stringify(payload.data));
 
+  self.clients.matchAll().then(clients => {
+    clients.forEach(client => {
+      client.postMessage(payload.notification);
+    });
+  });
+  
   return self.registration.showNotification(payload.data.title, payload.data);
 });
-
-
-
